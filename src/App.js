@@ -1,81 +1,31 @@
+import logo from './logo.svg';
 import './App.css';
-import Header from "./MyComponents/Header";
-import { Todos } from "./MyComponents/Todos";
-import { Footer } from "./MyComponents/Footer";
-import { AddTodo } from "./MyComponents/AddTodo";
-import { About } from "./MyComponents/About";
-import React, { useState, useEffect } from 'react';
-// import {
-//   BrowserRouter as Router,
-//   Switch,
-//   Route
-// } from "text";
 
 function App() {
-  let initTodo;
-  if (localStorage.getItem("todos") === null) {
-    initTodo = [];
-  }
-  else {
-    initTodo = JSON.parse(localStorage.getItem("todos"));
-  }
-
-
-  const onDelete = (todo) => {
-    console.log("I am ondelete of todo", todo);
-    // Deleting this way in react does not work
-    // let index = todos.indexOf(todo);
-    // todos.splice(index, 1);
-
-    setTodos(todos.filter((e) => {
-      return e !== todo;
-    }));
-    console.log("deleted", todos)
-    localStorage.setItem("todos", JSON.stringify(todos));
-  }
-
-  const addTodo = (title, desc) => {
-    console.log("I am adding this todo", title, desc)
-    let sno;
-    if (todos.length === 0) {
-      sno = 0;
-    }
-    else {
-      sno = todos[todos.length - 1].sno + 1;
-    }
-    const myTodo = {
-      sno: sno,
-      title: title,
-      desc: desc,
-    }
-    setTodos([...todos, myTodo]);
-    console.log(myTodo);
-  }
-
-  const [todos, setTodos] = useState(initTodo);
-  useEffect(() => {
-    localStorage.setItem("todos", JSON.stringify(todos));
-  }, [todos])
-
-  return ( 
-    <> 
-    {/* <Router> */}
-      <Header title="My Todos List" searchBar={false} /> 
-      {/* <Switch> */}
-          {/* <Route exact path="/" render={()=>{ */}
-            {/* return( */}
-            <>
-            <AddTodo addTodo={addTodo} />
-            <Todos todos={todos} onDelete={onDelete} /> 
-            </>
-          {/* }}>  */}
-          {/* </Route> */}
-          {/* <Route exact path="/about"> */}
-            <About />
-          {/* </Route>  */}
-        {/* </Switch>  */}
-      <Footer />
-    {/* </Router> */}
+  return (
+    <>
+      <nav className="navbar navbar-expand-lg bg-light">
+  <div className="container-fluid">
+    <a className="navbar-brand" href="/">TextUtils</a>
+    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span className="navbar-toggler-icon"></span>
+    </button>
+    <div className="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+        <li className="nav-item">
+          <a className="nav-link active" aria-current="page" href="/">Home</a>
+        </li>
+        <li className="nav-item">
+          <a className="nav-link" href="/">About</a>
+        </li>
+      </ul>
+      <form className="d-flex" role="search">
+        <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
+        <button className="btn btn-outline-success" type="submit">Search</button>
+      </form>
+    </div>
+  </div>
+</nav>
     </>
   );
 }
